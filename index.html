@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveling Barber</title>
+    <link rel="icon" type="image/png" href="images/comb_and_scissors.jpg" sizes="32x32" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oxygen:400,300,700">
+    <link href='https://fonts.googleapis.com/css?family=Great+Vibes|Sacramento' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/splash_screen.css">
+
+    <script src="vendor/js/jquery-1.11.3.min.js"></script>
+    <script src="vendor/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="homepage">
+        <video id="my-video" class="video" autoplay loop>
+          <source src="media/RSBS_l_URBANOUTFITTERS.mp4" type="video/mp4">
+          <source src="media/RSBS_l_URBANOUTFITTERS.webm" type="video/webm">
+          <source src="media/RSBS_l_URBANOUTFITTERS.flv" type="video/flv">
+        </video>
+        <div class="splash-page">
+            <nav class="header-navbar clearfix">
+              <ul class="header-navbar header-navbar-left clearfix">
+                <li><div data-linkpath="forpatrons" class="navbar-link">FOR PATRONS</div></li>
+                <li><div data-linkpath="about" class="navbar-link">ABOUT</div></li>
+              </ul>
+              <ul class="header-navbar header-navbar-right clearfix">
+                <li><div data-linkpath="forbarbers" class="navbar-link">FOR BARBERS</div></li>
+                <li><div data-linkpath="contacts" class="navbar-link">CONTACT</div></li>
+              </ul>
+            </nav>
+            <div class="header-logo" title="toggle audio">
+              <img id="logo" src="images/barber_icon.png" />
+            </div>
+            <div class="volume-control">
+              <span class="glyphicon glyphicon-volume-off">
+            </div>
+            <div class="header-content">
+              <h1 class="content__heading">Welcome To <br/> Traveling Barbers!</h1>
+              <p class="content__teaser">
+                We are committed to matching and creating relationships between
+                barbers and their patrons.
+              </p>
+            </div><!-- /content -->
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <div class="main-footer">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 Traveling Barbers &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </ddiv>
+
+
+    </div>
+    <script>
+      function volumeOffControlSet() {
+        $( ".glyphicon-volume-off" ).click(function () {
+          $(this).removeClass( "glyphicon-volume-off" );
+          $(this).addClass( "glyphicon-volume-up" );
+          $( "#my-video" ).prop("muted", true);
+          volumeOnControlSet();
+        });
+      };
+      function volumeOnControlSet() {
+        $( ".glyphicon-volume-up" ).click(function () {
+          $(this).removeClass( "glyphicon-volume-up" );
+          $(this).addClass( "glyphicon-volume-off" );
+          $( "#my-video" ).prop("muted", false);
+          volumeOffControlSet();
+        });
+      };
+      volumeOffControlSet();
+      volumeOnControlSet();
+
+      $( ".navbar-link" ).click(function() {
+        var left, right, uls;
+        var path = $(this).data("linkpath");
+        left = $( ".header-navbar-left");
+        right = $( ".header-navbar-right");
+        clickedUl = this.parentElement.parentElement.className;
+        if (clickedUl.search("left") > 0) {
+          uls = [left, right];
+          dirs = ["-", "+"];
+        } else {
+          uls = [right, left];
+          dirs = ["+", "-"];
+        }
+        uls[0].animate({
+          left: dirs[0] + "=2000",
+        }, 500, function() {
+          this.style.display = "none";
+          $(".header-logo").animate({
+            top: "-=2000",
+          }, 500);
+          $(".content__teaser").animate({
+            opacity: 0,
+          }, 10);
+          uls[1].animate({
+            left: dirs[1] + "=2000",
+          }, 500, function() {
+            this.style.display = "none";
+            $(".content__heading").animate({
+              opacity: 0,
+            }, 1000, function () {
+              window.location.href = path + ".html";
+            });
+          });
+        });
+
+      });
+    </script>
+  </body>
+</html>
